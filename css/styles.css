@@ -334,8 +334,12 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
    ============================================================ */
 .mission { position: relative; overflow: hidden; }
 .mission-card {
-  position: relative; background: var(--navy); color: #fff; border-radius: var(--radius-lg);
+  position: relative; color: #fff; border-radius: var(--radius-lg);
   padding: clamp(40px, 6vw, 84px); overflow: hidden; box-shadow: var(--shadow-lg);
+  background:
+    linear-gradient(100deg, var(--navy) 32%, rgba(10,30,50,0.88) 50%, rgba(10,30,50,0.45) 74%, rgba(10,30,50,0.18) 100%),
+    url("../assets/mission-hands.jpg") center right / cover no-repeat,
+    var(--navy);
 }
 .mission-card::before { content: ""; position: absolute; width: 340px; height: 340px; border-radius: 50%; background: rgba(250,225,76,0.14); top: -120px; right: -80px; }
 .mission-card::after { content: ""; position: absolute; width: 220px; height: 220px; border-radius: 50%; border: 2px solid rgba(250,225,76,0.2); bottom: -90px; left: 8%; }
@@ -625,6 +629,13 @@ section[id], div[id].anchor { scroll-margin-top: calc(var(--nav-h) + 20px); }
   /* Directory becomes single column */
   .involve { grid-template-columns: 1fr; gap: 34px; }
   .involve-head { position: static; }
+  /* Mission image reads behind full-width text — darken for contrast */
+  .mission-card {
+    background:
+      linear-gradient(180deg, rgba(10,30,50,0.80) 0%, rgba(10,30,50,0.90) 60%, rgba(10,30,50,0.94) 100%),
+      url("../assets/mission-hands.jpg") center / cover no-repeat,
+      var(--navy);
+  }
   .impact-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 16px; }
   .impact-item:nth-child(2)::after { display: none; }
   .impact-item:not(:last-child)::after { display: none; }
