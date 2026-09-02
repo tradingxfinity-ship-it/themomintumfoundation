@@ -284,7 +284,7 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
 /* Right side — large photo that fills the height and overlaps onto the navy */
 .hero-visual { position: relative; }
 .hero-photo {
-  position: absolute; z-index: 2; top: 46px; bottom: 46px; left: -13%; right: 4%;
+  position: absolute; z-index: 2; top: 46px; bottom: 46px; left: -5%; right: -4%;
   border-radius: 30px; overflow: hidden;
   box-shadow: 0 30px 70px rgba(0,0,0,0.34);
 }
@@ -520,7 +520,7 @@ section[id], div[id].anchor { scroll-margin-top: calc(var(--nav-h) + 20px); }
 @media (max-width: 1024px) {
   .hero-grid { min-height: calc(100vh - var(--nav-h)); }
   .hero-copy { padding: 40px 20px 40px 0; }
-  .hero-photo { left: -7%; top: 36px; bottom: 36px; }
+  .hero-photo { left: 0; right: -3%; top: 36px; bottom: 36px; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
   .partner-card { grid-template-columns: 1fr; gap: 26px; }
