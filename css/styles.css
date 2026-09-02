@@ -195,6 +195,8 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
   display: grid; place-items: center; font-weight: 900; font-size: 1.15rem;
   box-shadow: var(--shadow-sm);
 }
+.brand-logo { width: 42px; height: 42px; border-radius: 11px; object-fit: cover; display: block; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+.footer .brand-logo { box-shadow: none; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.05; }
 .brand-text .t1 { font-weight: 800; font-size: 0.82rem; letter-spacing: 0.14em; color: var(--navy); }
 .brand-text .t2 { font-weight: 800; font-size: 0.82rem; letter-spacing: 0.14em; color: var(--navy); }
