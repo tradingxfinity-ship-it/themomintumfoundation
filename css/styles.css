@@ -238,12 +238,14 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
    HERO
    ============================================================ */
 .hero { position: relative; overflow: hidden; background: var(--navy); color: #fff; }
-/* Two-tone split: navy (copy) on the left, yellow (photo) on the right */
+/* Full-width navy hero with soft brand glow */
 .hero::before {
-  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; right: 0;
-  background: var(--yellow); pointer-events: none;
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(920px 520px at 88% 8%, rgba(250,225,76,0.16), transparent 62%),
+    radial-gradient(720px 460px at 4% 104%, rgba(39,72,99,0.55), transparent 60%);
 }
-.hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 72px 0 78px; }
+.hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr 0.98fr; gap: 56px; align-items: center; padding: 80px 0 88px; }
 
 /* Left column — copy */
 .hero-eyebrow {
@@ -276,22 +278,27 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
 .hero-play:hover .hero-play-ic { border-color: var(--yellow); background: var(--yellow); color: var(--navy); transform: scale(1.06); }
 .hero-play:hover { color: var(--yellow); }
 
-/* Right column — photo on yellow */
+/* Right column — floating photo card on navy, with yellow accent behind */
 .hero-visual { position: relative; display: flex; justify-content: center; }
+.hero-visual::before {
+  content: ""; position: absolute; z-index: 0; inset: -24px -4% auto auto;
+  width: 52%; aspect-ratio: 1 / 1; background: var(--yellow); border-radius: 34px;
+  transform: rotate(4deg);
+}
 .hero-photo {
-  position: relative; z-index: 2; width: 100%; max-width: 470px; aspect-ratio: 5/4;
+  position: relative; z-index: 2; width: 100%; max-width: 480px; aspect-ratio: 5/4;
   border-radius: 64px 22px 64px 22px; overflow: hidden;
-  box-shadow: 0 30px 60px rgba(10,30,50,0.30); border: 6px solid #fff;
+  box-shadow: 0 34px 70px rgba(0,0,0,0.42); border: 6px solid #fff;
 }
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 .starburst {
   position: absolute; z-index: 3; right: -14px; bottom: -22px; width: 120px; height: 120px; border-radius: 50%;
-  background: repeating-conic-gradient(var(--navy) 0deg 1.4deg, transparent 1.4deg 8deg);
+  background: repeating-conic-gradient(var(--yellow) 0deg 1.4deg, transparent 1.4deg 8deg);
   -webkit-mask: radial-gradient(circle, transparent 30%, #000 31%);
   mask: radial-gradient(circle, transparent 30%, #000 31%);
 }
-.hero-aster { position: absolute; z-index: 3; color: var(--navy); font-size: 1.6rem; line-height: 1; opacity: 0.9; }
-.hero-aster-1 { top: -6px; left: 8%; }
+.hero-aster { position: absolute; z-index: 3; color: var(--yellow); font-size: 1.6rem; line-height: 1; opacity: 0.95; }
+.hero-aster-1 { top: -14px; left: 4%; }
 
 /* ============================================================
    IMPACT STRIP
@@ -519,9 +526,8 @@ section[id], div[id].anchor { scroll-margin-top: calc(var(--nav-h) + 20px); }
   .partner-card { grid-template-columns: 1fr; gap: 26px; }
 }
 @media (max-width: 860px) {
-  /* Hero stacks; drop the yellow split panel and let the photo sit below */
-  .hero::before { display: none; }
-  .hero-grid { grid-template-columns: 1fr; gap: 40px; padding: 52px 0 60px; }
+  /* Hero stacks; photo sits below the copy */
+  .hero-grid { grid-template-columns: 1fr; gap: 44px; padding: 52px 0 60px; }
   .hero-visual { max-width: 470px; }
   .hero-sub { max-width: 520px; }
   .nav-links { display: none; }
