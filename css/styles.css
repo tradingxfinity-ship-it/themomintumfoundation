@@ -246,7 +246,7 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
 }
 .hero-grid {
   position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr;
-  align-items: stretch; min-height: 620px; column-gap: 0;
+  align-items: stretch; min-height: calc(100vh - var(--nav-h)); column-gap: 0;
 }
 
 /* Left column — copy (sits on navy, vertically centered) */
@@ -518,7 +518,7 @@ section[id], div[id].anchor { scroll-margin-top: calc(var(--nav-h) + 20px); }
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
-  .hero-grid { min-height: 520px; }
+  .hero-grid { min-height: calc(100vh - var(--nav-h)); }
   .hero-copy { padding: 40px 20px 40px 0; }
   .hero-photo { left: -7%; top: 36px; bottom: 36px; }
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
