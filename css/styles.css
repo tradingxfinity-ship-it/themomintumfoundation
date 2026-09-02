@@ -517,6 +517,79 @@ section[id], div[id].anchor { scroll-margin-top: calc(var(--nav-h) + 20px); }
 .reveal.d3 { transition-delay: .24s; }
 
 /* ============================================================
+   ENTREPRENEURSHIP — ascending step journey (navy)
+   ============================================================ */
+.journey-track {
+  position: relative; list-style: none; padding: 0; margin: 60px 0 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; align-items: start;
+}
+.journey-path { position: absolute; z-index: 0; top: 56px; left: 8%; width: 84%; height: 180px; pointer-events: none; }
+.journey-step {
+  position: relative; z-index: 1; background: var(--navy-700);
+  border: 1px solid rgba(255,255,255,0.10); border-radius: var(--radius-lg);
+  padding: 34px 30px 32px; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.journey-step:nth-of-type(1) { margin-top: 96px; }
+.journey-step:nth-of-type(2) { margin-top: 48px; }
+.journey-step:nth-of-type(3) { margin-top: 0; }
+.journey-step:hover { transform: translateY(-6px); border-color: rgba(250,225,76,0.5); box-shadow: 0 24px 50px rgba(0,0,0,0.4); }
+.js-index { display: block; font-family: "Fraunces", Georgia, serif; font-size: 2.5rem; font-weight: 600; color: var(--yellow); line-height: 1; }
+.js-icon { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 15px; margin: 18px 0 18px; background: rgba(250,225,76,0.12); border: 1px solid rgba(250,225,76,0.32); color: var(--yellow); }
+.js-icon svg { width: 26px; height: 26px; }
+.journey-step h3 { color: #fff; font-size: 1.45rem; margin-bottom: 8px; }
+.journey-step p { color: #C6D2DE; font-size: 0.98rem; }
+
+/* ============================================================
+   WAYS TO GIVE — bold horizontal bands
+   ============================================================ */
+.give-bands { display: grid; gap: 20px; }
+.give-band {
+  display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 30px;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 30px 40px; position: relative; overflow: hidden;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.give-band:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--yellow-soft); }
+.gb-num { font-family: "Fraunces", Georgia, serif; font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 600; color: var(--line); line-height: 1; }
+.gb-icon { width: 66px; height: 66px; border-radius: 18px; display: grid; place-items: center; flex-shrink: 0; background: var(--yellow-tint); border: 1px solid var(--yellow-soft); color: var(--navy); }
+.gb-icon svg { width: 31px; height: 31px; }
+.gb-body h3 { font-size: 1.5rem; margin-bottom: 6px; }
+.gb-body p { color: var(--muted); max-width: 640px; font-size: 1rem; }
+.gb-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.gb-tags span { font-size: 0.78rem; font-weight: 700; color: var(--navy-500); background: var(--yellow-tint); border: 1px solid var(--yellow-soft); padding: 5px 12px; border-radius: var(--radius-pill); }
+.give-band .btn { white-space: nowrap; }
+.give-band.feature { background: var(--navy); border-color: var(--navy); box-shadow: var(--shadow); }
+.give-band.feature h3 { color: #fff; }
+.give-band.feature p { color: #C6D2DE; }
+.give-band.feature .gb-num { color: rgba(255,255,255,0.16); }
+.give-band.feature .gb-icon { background: var(--navy-700); border-color: var(--navy-500); color: var(--yellow); }
+
+/* ============================================================
+   GET INVOLVED — editorial directory
+   ============================================================ */
+.involve { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 64px; align-items: start; }
+.involve-head { position: sticky; top: calc(var(--nav-h) + 34px); }
+.involve-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+.involve-row {
+  display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 22px;
+  padding: 26px 12px 26px 8px; border-bottom: 1px solid var(--line); position: relative;
+  transition: padding .22s ease, background .22s ease;
+}
+.involve-row::before { content: ""; position: absolute; left: 0; top: 12%; bottom: 12%; width: 3px; background: var(--yellow); border-radius: 3px; transform: scaleY(0); transition: transform .22s ease; }
+.involve-row:hover { background: var(--bg-soft); padding-left: 24px; }
+.involve-row:hover::before { transform: scaleY(1); }
+.ir-num { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 1.05rem; color: var(--muted-2); min-width: 2ch; }
+.ir-icon { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; background: var(--yellow-tint); border: 1px solid var(--yellow-soft); color: var(--navy); transition: background .2s ease; }
+.ir-icon svg { width: 24px; height: 24px; }
+.involve-row:hover .ir-icon { background: var(--yellow); }
+.ir-body { display: flex; flex-direction: column; gap: 3px; }
+.ir-title { font-weight: 800; font-size: 1.22rem; color: var(--navy); letter-spacing: -0.01em; }
+.ir-desc { color: var(--muted); font-size: 0.96rem; }
+.ir-arrow { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; border: 1.5px solid var(--line); color: var(--navy); transition: all .2s ease; }
+.ir-arrow svg { width: 18px; height: 18px; }
+.involve-row:hover .ir-arrow { background: var(--navy); color: #fff; border-color: var(--navy); transform: translateX(3px); }
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1024px) {
@@ -545,6 +618,13 @@ section[id], div[id].anchor { scroll-margin-top: calc(var(--nav-h) + 20px); }
   .split.reverse .split-media { order: 0; }
   .grid-3 { grid-template-columns: 1fr; }
   .donate-cards { grid-template-columns: 1fr; }
+  /* Journey stacks vertically (no staircase) */
+  .journey-track { grid-template-columns: 1fr; gap: 18px; margin-top: 40px; }
+  .journey-step { margin-top: 0 !important; }
+  .journey-path { display: none; }
+  /* Directory becomes single column */
+  .involve { grid-template-columns: 1fr; gap: 34px; }
+  .involve-head { position: static; }
   .impact-grid { grid-template-columns: repeat(2, 1fr); gap: 30px 16px; }
   .impact-item:nth-child(2)::after { display: none; }
   .impact-item:not(:last-child)::after { display: none; }
@@ -559,6 +639,13 @@ section[id], div[id].anchor { scroll-margin-top: calc(var(--nav-h) + 20px); }
   .hero-cta .btn-primary { width: 100%; text-align: center; }
   .starburst { width: 92px; height: 92px; right: -6px; bottom: -14px; }
   .footer-grid { grid-template-columns: 1fr; }
+  /* Give bands: stack icon+body, full-width button */
+  .give-band { grid-template-columns: auto 1fr; gap: 16px 20px; padding: 26px 22px; }
+  .gb-num { display: none; }
+  .give-band .btn { grid-column: 1 / -1; width: 100%; }
+  /* Directory rows: drop the index number */
+  .ir-num { display: none; }
+  .involve-row { gap: 16px; }
   .card { padding: 26px; }
   .impact-grid { grid-template-columns: repeat(2, 1fr); }
 }
