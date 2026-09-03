@@ -23,6 +23,16 @@ window.MOMINTUM = {
     facebook: "#", instagram: "#", linkedin: "#", youtube: "#",
   },
 
+  // Live donation counter (powered by /api/donations + a KV store).
+  // See DONATIONS.md to connect the store and your payment webhook.
+  donationCounter: {
+    apiUrl: "/api/donations",   // serverless endpoint
+    pollMs: 15000,              // how often to check for new donations
+    // Shown if the API isn't reachable yet (e.g. local preview / before
+    // the KV store is connected). Honest zero baseline — never fabricated.
+    fallback: { raisedCents: 0, donorCount: 0, goalCents: 5000000, currency: "USD", live: false },
+  },
+
   // Homepage impact statistics (placeholders — foundation can update)
   stats: [
     { value: 1000, suffix: "+", label: "People Supported" },
@@ -157,6 +167,67 @@ window.MOMINTUM = {
 
   /* ---------- Footer year ---------- */
   document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
+
+  /* ---------- Live donation counter ---------- */
+  (function donationCounter() {
+    const root = document.getElementById("donationCounter");
+    if (!root) return;
+    const cfg = CFG.donationCounter || {};
+    const elAmount = root.querySelector("[data-raised]");
+    const elGoal = root.querySelector("[data-goal]");
+    const elDonors = root.querySelector("[data-donors]");
+    const elFill = root.querySelector("[data-fill]");
+    const elLive = root.querySelector("[data-live]");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const money = (cents, currency) =>
+      (Math.max(0, cents) / 100).toLocaleString("en-US", {
+        style: "currency", currency: currency || "USD", maximumFractionDigits: 0,
+      });
+
+    let shownRaised = null; // last displayed cents (for animating up)
+
+    const animateMoney = (from, to, currency) => {
+      if (reduce || from === null) { elAmount.textContent = money(to, currency); return; }
+      const start = performance.now(), dur = 1000;
+      const step = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        elAmount.textContent = money(Math.round(from + (to - from) * eased), currency);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const render = (d) => {
+      const raised = Math.max(0, d.raisedCents | 0);
+      const goal = Math.max(1, d.goalCents | 0);
+      animateMoney(shownRaised, raised, d.currency);
+      shownRaised = raised;
+      if (elGoal) elGoal.textContent = money(goal, d.currency);
+      if (elDonors) elDonors.textContent = (d.donorCount | 0).toLocaleString("en-US");
+      if (elFill) elFill.style.width = Math.min(100, Math.round((raised / goal) * 100)) + "%";
+      if (elLive) elLive.textContent = d.live ? "Live donation tracker" : "Donation tracker";
+      root.classList.toggle("is-live", !!d.live);
+    };
+
+    let firstLoad = true;
+    const load = async () => {
+      try {
+        const r = await fetch(cfg.apiUrl, { headers: { Accept: "application/json" }, cache: "no-store" });
+        if (!r.ok) throw new Error(r.status);
+        render(await r.json());
+      } catch {
+        if (firstLoad) render(cfg.fallback || { raisedCents: 0, donorCount: 0, goalCents: 5000000, currency: "USD", live: false });
+        // On later failures keep the last good value on screen.
+      } finally {
+        firstLoad = false;
+      }
+    };
+
+    load();
+    if (cfg.pollMs > 0) setInterval(load, cfg.pollMs);
+  })();
 
   /* ---------- Branded image fallback ----------
      If a photo fails to load (offline / placeholder swap), show an
