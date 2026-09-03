@@ -421,12 +421,22 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
    COMMUNITY / PARTNER
    ============================================================ */
 .partner-card {
+  position: relative; overflow: hidden;
   display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
   background: linear-gradient(120deg, var(--navy) 0%, var(--navy-700) 100%); color: #fff;
   border-radius: var(--radius-lg); padding: clamp(34px, 5vw, 60px); box-shadow: var(--shadow);
 }
+.partner-card > div { position: relative; z-index: 1; }
 .partner-card h2 { color: #fff; }
 .partner-card p { color: #C6D2DE; margin-top: 14px; max-width: 560px; }
+/* Logo used as a decorative watermark; screen blend hides the navy square,
+   leaving the "m" glowing softly on the navy card */
+.partner-mark {
+  position: absolute; z-index: 0; right: -72px; bottom: -84px;
+  width: min(300px, 44%); height: auto; border-radius: 32px;
+  transform: rotate(-8deg); opacity: 0.42;
+  mix-blend-mode: lighten; pointer-events: none; user-select: none;
+}
 
 /* ============================================================
    BANNER CTA
