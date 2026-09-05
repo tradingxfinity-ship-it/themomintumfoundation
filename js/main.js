@@ -6,10 +6,13 @@
    the foundation can change them in one place.)
    ============================================================ */
 window.MOMINTUM = {
-  // Financial donation destination. Replace with your live
-  // donation platform / payment link (e.g. Donorbox, Givebutter,
-  // PayPal Giving, Stripe Payment Link, etc.)
-  donationUrl: "#donation-platform", // [DONATION PLATFORM / PAYMENT LINK]
+  // Financial donation destinations. Paste your live links here.
+  // Stripe: a Payment Link, e.g. https://buy.stripe.com/xxxxxxxx
+  // PayPal: a donate link, e.g. https://www.paypal.com/donate/?hosted_button_id=XXXXXXXX
+  donation: {
+    stripeUrl: "#stripe-payment-link", // ← replace with your Stripe Payment Link
+    paypalUrl: "#paypal-donate-link",  // ← replace with your PayPal donate link
+  },
 
   parentUrl: "https://www.momintumtx.com/",
 
@@ -47,9 +50,11 @@ window.MOMINTUM = {
   const CFG = window.MOMINTUM;
 
   /* ---------- Hydrate config-driven content ---------- */
-  document.querySelectorAll("[data-donate-link]").forEach((el) => {
-    el.setAttribute("href", CFG.donationUrl);
-  });
+  const DON = CFG.donation || {};
+  document.querySelectorAll("[data-stripe-link]").forEach((el) => el.setAttribute("href", DON.stripeUrl || "#"));
+  document.querySelectorAll("[data-paypal-link]").forEach((el) => el.setAttribute("href", DON.paypalUrl || "#"));
+  // Backward-compat: any generic donate link defaults to the Stripe checkout.
+  document.querySelectorAll("[data-donate-link]").forEach((el) => el.setAttribute("href", DON.stripeUrl || "#"));
   document.querySelectorAll("[data-parent-link]").forEach((el) => {
     el.setAttribute("href", CFG.parentUrl);
   });

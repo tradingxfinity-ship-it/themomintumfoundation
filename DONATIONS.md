@@ -13,6 +13,32 @@ turns into a green **"Live donation tracker"** and updates automatically.
 
 ---
 
+---
+
+## Donate buttons (PayPal + Stripe)
+
+The Monetary Donation section shows two buttons — **Donate with Card** (Stripe)
+and **Donate with PayPal**. Point them at your live links in **`js/main.js`**:
+
+```js
+window.MOMINTUM = {
+  donation: {
+    stripeUrl: "https://buy.stripe.com/XXXXXXXX",                     // Stripe Payment Link
+    paypalUrl: "https://www.paypal.com/donate/?hosted_button_id=XXXX", // PayPal donate link
+  },
+  ...
+```
+
+- **Stripe** — Dashboard → Payment Links → create a link (enable "Let customers
+  choose amount" so donors set their own gift). Paste the `https://buy.stripe.com/…` URL.
+- **PayPal** — paypal.com → create a **Donate** button / donation link, or use a
+  `https://www.paypal.com/donate/?hosted_button_id=…` (or `paypal.me/…`) URL.
+
+Donors pick their amount on the secure Stripe/PayPal page. To also feed the live
+counter, connect each platform's webhook below.
+
+---
+
 ## 1. Create a KV store (once)
 
 Easiest: **Vercel → your project → Storage → Create → KV** (Upstash Redis).
@@ -59,14 +85,16 @@ The hero counter polls `GET /api/donations` every 15s (configurable in
 
 ### Platform notes
 
-- **Stripe** — create a webhook for `checkout.session.completed` / `payment_intent.succeeded`.
-  A tiny relay (or a Stripe Workflow / Zapier step) should read `amount_total`
-  and POST `{ "amountCents": amount_total }` with the secret header. (For production,
-  verify the Stripe signature in the relay before forwarding.)
-- **Donorbox / Givebutter** — enable outgoing webhooks and map the donation amount
-  to `amountCents` (multiply dollars by 100), sending the secret header.
-- No‑code option — **Zapier/Make**: trigger = "new donation", action = "POST" to the
-  URL above with the header and body.
+- **Stripe** — Dashboard → Developers → Webhooks → add endpoint for
+  `checkout.session.completed`. Have a small relay (or a Zapier/Make step) read
+  `amount_total` and POST `{ "amountCents": amount_total }` to `/api/donations`
+  with the `x-momintum-secret` header. (For production, verify the Stripe signature
+  in the relay before forwarding.)
+- **PayPal** — enable a **webhook** (or IPN) for completed donations. Map the paid
+  amount to dollars and POST `{ "amount": <dollars> }` (the API converts to cents)
+  with the secret header.
+- No‑code option — **Zapier/Make**: trigger = "new Stripe payment" or "new PayPal
+  sale", action = POST to the URL above with the header and body.
 
 ## 4. Test it
 

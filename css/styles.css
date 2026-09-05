@@ -495,6 +495,12 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
    FORMS
    ============================================================ */
 .form-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(26px, 4vw, 40px); box-shadow: var(--shadow-sm); }
+.pay-options { display: grid; gap: 12px; margin-top: 22px; }
+.pay-btn { gap: 12px; }
+.pay-btn svg { width: 22px; height: 22px; }
+.pay-trust { display: flex; justify-content: center; margin-top: 16px; color: var(--muted-2); font-size: 0.86rem; }
+.pay-trust span { display: inline-flex; align-items: center; gap: 8px; }
+.pay-trust svg { width: 17px; height: 17px; color: var(--yellow-600); }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .field { display: flex; flex-direction: column; gap: 7px; }
 .field.full { grid-column: 1 / -1; }
