@@ -342,6 +342,20 @@ textarea:focus-visible, select:focus-visible, .card:focus-visible {
 .impact-note { text-align: center; padding-bottom: 22px; color: var(--navy-700); font-size: 0.86rem; opacity: 0.85; }
 
 /* ============================================================
+   IMPACT ROW — compact early-progress stats
+   ============================================================ */
+.impact-row { padding: 40px 0; background: var(--bg-soft); border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2); }
+.impact-row-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.istat { display: flex; align-items: center; gap: 14px; justify-content: center; position: relative; }
+.istat:not(:last-child)::after { content: ""; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); height: 46px; width: 1px; background: var(--line); }
+.istat-ic { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; flex-shrink: 0; background: var(--yellow-tint); border: 1px solid var(--yellow-soft); color: var(--navy); }
+.istat-ic svg { width: 24px; height: 24px; }
+.istat-txt { display: flex; flex-direction: column; line-height: 1.12; }
+.istat-n { font-size: 1.95rem; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; }
+.istat-l { font-size: 0.86rem; font-weight: 600; color: var(--muted); }
+.impact-row-note { text-align: center; margin-top: 24px; color: var(--muted-2); font-size: 0.84rem; }
+
+/* ============================================================
    ABOUT / feature list
    ============================================================ */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
@@ -676,6 +690,10 @@ section[id], div[id].anchor { scroll-margin-top: calc(var(--nav-h) + 20px); }
   /* Donate hero stacks: text then counter */
   .page-hero-grid { grid-template-columns: 1fr; gap: 34px; padding: 52px 0 60px; }
   .page-hero-aside .hero-counter { max-width: 470px; }
+  /* Impact row → 2 columns, no dividers */
+  .impact-row-grid { grid-template-columns: repeat(2, 1fr); gap: 26px 18px; }
+  .istat::after { display: none; }
+  .istat { justify-content: flex-start; }
   /* Mission image reads behind full-width text — darken for contrast */
   .mission-card {
     background:
